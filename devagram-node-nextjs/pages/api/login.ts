@@ -1,6 +1,8 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
+import {conectarMongoDB} from '../../middlewares/conectaMongoDB';
 
-export default (
+
+const endpoint = (
 
     req : NextApiRequest,
     res : NextApiResponse
@@ -13,7 +15,7 @@ export default (
         if(login === 'admin@admin.com' &&
             senha === 'Admin@123'){
 
-                res.status(200).json({msg : 'Usuário autenticado com Sucesso'})
+              return res.status(200).json({msg : 'Usuário autenticado com Sucesso'})
 
             }
 
@@ -25,3 +27,5 @@ export default (
 
 
 }
+
+export default conectarMongoDB(endpointLogin);
