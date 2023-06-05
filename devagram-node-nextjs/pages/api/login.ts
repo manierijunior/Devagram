@@ -1,11 +1,11 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import {conectarMongoDB} from '../../middlewares/conectaMongoDB';
+import type {RespostaPadraoMsg} from '../../types/RespostaPadraoMsg'
 
-
-const endpoint = (
+const endpointLogin = (
 
     req : NextApiRequest,
-    res : NextApiResponse
+    res : NextApiResponse<RespostaPadraoMsg>
 
 ) => {
 
@@ -28,4 +28,4 @@ const endpoint = (
 
 }
 
-export default conectarMongoDB(endpointLogin);
+export default conectarMongoDB (endpointLogin);
