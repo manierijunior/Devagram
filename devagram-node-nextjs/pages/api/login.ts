@@ -1,8 +1,10 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import {conectarMongoDB} from '../../middlewares/conectaMongoDB';
 import type {RespostaPadraoMsg} from '../../types/RespostaPadraoMsg'
+import md5 from 'md5'
+import { UsuarioModel } from '@/models/UsuarioModel';
 
-const endpointLogin = (
+const endpointLogin = async (
 
     req : NextApiRequest,
     res : NextApiResponse<RespostaPadraoMsg>
@@ -12,10 +14,11 @@ const endpointLogin = (
     if(req.method === 'POST'){
         const {login, senha} = req.body;
 
-        if(login === 'admin@admin.com' &&
-            senha === 'Admin@123'){
+        const usuariosEncontrados = await UsuarioModel.find({email : login, senha : md5(senha)});
+        if(usuariosEncontrados && usuariosEncontrados.length > 0){
 
-              return res.status(200).json({msg : 'Usuário autenticado com Sucesso'})
+                const usuarioEncontrado = usuariosEncontrados[0];
+              return res.status(200).json({msg : `Usuário ${usuarioEncontrado.nome} autenticado com Sucesso`})
 
             }
 
