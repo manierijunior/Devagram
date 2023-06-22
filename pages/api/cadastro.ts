@@ -38,5 +38,5 @@ const endpointCadastro =
             
  }
 
- export default conectarMongoDB(endpointCadastro);
+ export default endpointCadastro;
 
