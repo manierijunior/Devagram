@@ -7,4 +7,4 @@ const usuarioEndpoint = (req : NextApiRequest, res : NextApiResponse) => {
 
 }
 
-export default usuarioEndpoint
+export default validarTokenJWT (usuarioEndpoint);

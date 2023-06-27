@@ -5,6 +5,8 @@ import jwt, { JwtHeader, JwtPayload } from 'jsonwebtoken';
 export const validarTokenJWT = (handler : NextApiHandler) =>
       (req : NextApiRequest, res : NextApiResponse<RespostaPadraoMsg>) => {
 
+
+        try{
             const {MINHA_CHAVE_JWT} = process.env;
            
             if(!MINHA_CHAVE_JWT){
@@ -43,8 +45,14 @@ export const validarTokenJWT = (handler : NextApiHandler) =>
 
                     }
 
-                    req.query.userId = decoded._._id
+                    req.query.userId = decoded._id;
                 }
+
+        }catch(e){
+            console.log(e);
+            return res.status(401).json({ erro : 'Não foi possível validar o token de acesso.'});
+        }
+
 
                 return handler(req, res);
         }
