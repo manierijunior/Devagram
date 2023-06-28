@@ -10,7 +10,7 @@ import jwt from 'jsonwebtoken';
 const endpointLogin = async (
 
     req : NextApiRequest,
-    res : NextApiResponse<RespostaPadraoMsg | LoginResposta >
+    res : NextApiResponse<RespostaPadraoMsg | LoginResposta>
 
 )  => {
 
