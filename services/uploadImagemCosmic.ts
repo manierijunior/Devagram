@@ -12,6 +12,8 @@ const cosmic = createBucketClient({
     writeKey: BUCKET_WRITEKEY
 });
 
+// o multer vai particionando a imagem e salvando ela aos poucos até o fim   
+
 const storage = multer.memoryStorage();
 const updload = multer({storage : storage});
 
