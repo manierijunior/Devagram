@@ -8,8 +8,19 @@ const pesquisaEndpoint =  async (req : NextApiRequest, res : NextApiResponse<Res
 
     try {
         if (req.method === 'GET'){
+                if(req?.query?.id){
 
-                const {filtro} = req.query;
+                    const usuarioEncontrado = await UsuarioModel.findById(req?.query?.id);
+                        if(!usuarioEncontrado){
+                            return res.status(400).json({erro : 'Usuário não Encontrado' });
+                            
+                        }
+
+                                return res.status(200).json(usuarioEncontrado);
+
+                }else{
+                   
+                    const {filtro} = req.query;
 
                 if(!filtro || filtro.length < 2) {
 
@@ -17,12 +28,16 @@ const pesquisaEndpoint =  async (req : NextApiRequest, res : NextApiResponse<Res
                 }
 
                 const usuariosEncontrados = await UsuarioModel.find ({
-                    $or: [{nome : {$regex : filtro, $options: 'i'}},
-                        //{email : {$regex : filtro, $options: 'i'}}]
+                    $or: [{nome : {$regex : filtro, $options: 'i'}}, 
+                        //{email : {$regex : filtro, $options: 'i'}}
+                         ]
                 });
 
                 return res.status (200).json(usuariosEncontrados);
         }   
+
+                }
+                
         return res.status(405).json({erro : 'Método informado não é válido.'});
 
     }catch(e){
