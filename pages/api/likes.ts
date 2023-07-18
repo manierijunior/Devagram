@@ -56,5 +56,3 @@ try{
 
 
 export default validarTokenJWT(conectarMongoDB(likeEndpoint));
-
-//
